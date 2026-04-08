@@ -1,12 +1,14 @@
+use crate::preferences::Preferences;
 use adw::{
     HeaderBar, ToolbarView, ViewStack, ViewSwitcher, ViewSwitcherPolicy,
     gtk::{Box, prelude::BoxExt},
 };
 
-pub mod browse;
-pub mod manage;
+mod browse;
+mod manage;
+mod onboarding;
 
-pub fn content() -> Box {
+pub fn content(preferences: Option<Preferences>) -> Box {
     let content = Box::new(adw::gtk::Orientation::Vertical, 0);
 
     let view_stack = ViewStack::builder().build();
@@ -17,6 +19,7 @@ pub fn content() -> Box {
         "Browse",
         "system-search-symbolic",
     );
+    view_stack.add_named(&onboarding::page(), Some("onboarding"));
 
     let view_switcher = ViewSwitcher::builder()
         .stack(&view_stack)
@@ -30,6 +33,10 @@ pub fn content() -> Box {
     toolbar_view.add_top_bar(&header_bar);
 
     content.append(&toolbar_view);
+
+    if preferences.is_none() {
+        view_stack.set_visible_child_name("onboarding");
+    }
 
     content
 }
