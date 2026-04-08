@@ -1,6 +1,7 @@
 use adw::prelude::*;
 use adw::{Application, ApplicationWindow};
 
+mod preferences;
 mod ui;
 
 fn main() {
