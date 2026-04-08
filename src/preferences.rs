@@ -3,7 +3,7 @@ use std::{error::Error, path::PathBuf};
 
 #[derive(FieldCount, Clone, Debug)]
 pub struct Preferences {
-    game_dir: PathBuf,
+    pub game_dir: PathBuf,
 }
 
 impl Preferences {

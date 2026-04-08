@@ -1,3 +1,5 @@
+use std::cell::RefCell;
+
 use crate::preferences::Preferences;
 use adw::{
     HeaderBar, ToolbarView, ViewStack, ViewSwitcher, ViewSwitcherPolicy,
@@ -10,6 +12,7 @@ mod onboarding;
 
 pub fn content(preferences: Option<Preferences>) -> Box {
     let content = Box::new(adw::gtk::Orientation::Vertical, 0);
+    let preferences = RefCell::new(preferences);
 
     let view_stack = ViewStack::builder().build();
     view_stack.add_titled_with_icon(&manage::page(), Some("manage"), "Manage", "folder-symbolic");
@@ -19,7 +22,7 @@ pub fn content(preferences: Option<Preferences>) -> Box {
         "Browse",
         "system-search-symbolic",
     );
-    view_stack.add_named(&onboarding::page(), Some("onboarding"));
+    view_stack.add_named(&onboarding::page(preferences.clone()), Some("onboarding"));
 
     let view_switcher = ViewSwitcher::builder()
         .stack(&view_stack)
@@ -34,7 +37,7 @@ pub fn content(preferences: Option<Preferences>) -> Box {
 
     content.append(&toolbar_view);
 
-    if preferences.is_none() {
+    if preferences.borrow().is_none() {
         view_stack.set_visible_child_name("onboarding");
     }
 
