@@ -2,6 +2,7 @@ use crate::preferences::Preferences;
 use adw::prelude::*;
 use adw::{Application, ApplicationWindow};
 
+mod manage;
 mod preferences;
 mod ui;
 

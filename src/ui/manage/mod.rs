@@ -1,3 +1,4 @@
+use crate::preferences::Preferences;
 use adw::{
     ButtonRow, OverlaySplitView,
     gtk::{
@@ -5,6 +6,7 @@ use adw::{
         prelude::{BoxExt, WidgetExt},
     },
 };
+use std::cell::RefCell;
 
 mod bikes;
 mod misc;
@@ -13,7 +15,7 @@ mod rider;
 mod tracks;
 mod tyres;
 
-pub fn page() -> Box {
+pub fn page(preferences: RefCell<Option<Preferences>>) -> Box {
     let split_view = OverlaySplitView::new();
 
     let title = Label::new(Some("Manage mods"));
@@ -21,7 +23,9 @@ pub fn page() -> Box {
 
     let bikes_row = ButtonRow::builder().title("Bikes").build();
     let split_view_clone = split_view.clone();
-    bikes_row.connect_activated(move |_| split_view_clone.set_content(Some(&bikes::page())));
+    bikes_row.connect_activated(move |_| {
+        split_view_clone.set_content(Some(&bikes::page(preferences.clone())))
+    });
 
     let misc_row = ButtonRow::builder().title("Misc").build();
     let split_view_clone = split_view.clone();
