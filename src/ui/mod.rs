@@ -22,7 +22,6 @@ pub fn content(preferences: Option<Preferences>) -> Box {
         "Browse",
         "system-search-symbolic",
     );
-    view_stack.add_named(&onboarding::page(preferences.clone()), Some("onboarding"));
 
     let view_switcher = ViewSwitcher::builder()
         .stack(&view_stack)
@@ -38,6 +37,10 @@ pub fn content(preferences: Option<Preferences>) -> Box {
     content.append(&toolbar_view);
 
     if preferences.borrow().is_none() {
+        view_stack.add_named(
+            &onboarding::page(preferences.clone(), view_stack.clone()),
+            Some("onboarding"),
+        );
         view_stack.set_visible_child_name("onboarding");
     }
 
