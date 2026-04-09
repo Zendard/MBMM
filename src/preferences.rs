@@ -26,7 +26,7 @@ impl Preferences {
             std::fs::create_dir(&file_path)?
         }
 
-        file_path.push(PathBuf::from("MBMM"));
+        file_path.push(PathBuf::from("preferences"));
 
         std::fs::write(file_path, string)?;
         Ok(())
@@ -47,7 +47,7 @@ impl Preferences {
         // Config file format:
         // game_dir
         let mut lines = file.lines();
-        let game_dir = lines.next().ok_or("No game_dir value")?.try_into()?;
+        let game_dir = lines.next().ok_or("No game_dir value")?.into();
         Ok(Self { game_dir })
     }
 }
