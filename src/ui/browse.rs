@@ -1,6 +1,13 @@
-use adw::gtk::{Box, Orientation};
+use adw::gtk::{
+    Box, Label, Orientation,
+    prelude::{BoxExt, WidgetExt},
+};
 
 pub fn page() -> Box {
+    let title = Label::new(Some("Browse"));
+    title.add_css_class("title-1");
+
     let content = Box::new(Orientation::Vertical, 0);
-    return content;
+    content.append(&title);
+    content
 }
