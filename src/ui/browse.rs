@@ -4,7 +4,7 @@ use adw::gtk::{
 };
 
 pub fn page() -> Box {
-    let title = Label::new(Some("Browse"));
+    let title = Label::new(Some("Browse page not implemented yet :/"));
     title.add_css_class("title-1");
 
     let content = Box::new(Orientation::Vertical, 0);
