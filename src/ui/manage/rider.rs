@@ -4,7 +4,7 @@ use adw::gtk::{
 };
 
 pub fn page() -> Box {
-    let title = Label::new(Some("Manage"));
+    let title = Label::new(Some("Rider"));
     title.add_css_class("title-1");
 
     let content = Box::new(Orientation::Vertical, 0);
