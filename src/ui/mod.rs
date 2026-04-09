@@ -15,7 +15,12 @@ pub fn content(preferences: Option<Preferences>) -> Box {
     let preferences = RefCell::new(preferences);
 
     let view_stack = ViewStack::builder().build();
-    view_stack.add_titled_with_icon(&manage::page(), Some("manage"), "Manage", "folder-symbolic");
+    view_stack.add_titled_with_icon(
+        &manage::page(preferences.clone()),
+        Some("manage"),
+        "Manage",
+        "folder-symbolic",
+    );
     view_stack.add_titled_with_icon(
         &browse::page(),
         Some("browse"),

@@ -22,6 +22,9 @@ pub fn page(preferences: RefCell<Option<Preferences>>, view_stack: ViewStack) ->
         .placeholder_text("Mods folder")
         .input_purpose(InputPurpose::Terminal)
         .buffer(&folder_buffer)
+        .hexpand(true)
+        .halign(Align::Center)
+        .width_chars(32)
         .build();
 
     let folder_button = Button::builder()
@@ -34,6 +37,7 @@ pub fn page(preferences: RefCell<Option<Preferences>>, view_stack: ViewStack) ->
     let folder_box = Box::builder()
         .orientation(Orientation::Horizontal)
         .spacing(4)
+        .hexpand(true)
         .halign(Align::Center)
         .build();
     folder_box.append(&folder_entry);
@@ -42,6 +46,7 @@ pub fn page(preferences: RefCell<Option<Preferences>>, view_stack: ViewStack) ->
     let save_button = Button::builder()
         .label("Save")
         .css_classes(["suggested-action"])
+        .halign(Align::Center)
         .build();
     let folder_buffer_clone = folder_buffer.clone();
     save_button.connect_clicked(move |_| {
